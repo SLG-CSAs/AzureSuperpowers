@@ -3,17 +3,13 @@ Azure Superpowers Lab Manual
 
 [1. Lab - Download and Install Tools](#lab-1---download-and-install-tools)
 
-- [1.1. Exercise - Setup Az PowerShell Module](#exercise---setup-az-powershell-module)
+- [1.1. Exercise - Setup Git for Windows](#exercise---setup-git-for-windows)
 
-- [1.2. Exercise - Setup Git for Windows](#exercise---setup-git-for-windows)
+- [1.2. Exercise - Setup Visual Studio Code](#exercise---setup-visual-studio-code)
 
-- [1.3. Exercise - Setup Visual Studio Code](#exercise---setup-visual-studio-code)
+- [1.3. Exercise - Version Check](#exercise---version-check)
 
-- [1.4. Exercise - Setup Azure Storage Explorer](#exercise---setup-azure-storage-explorer)
-
-- [1.5. Exercise - Version Check](#exercise---version-check)
-
-- [1.6. Troubleshooting](#troubleshooting)
+- [1.4. Troubleshooting](#troubleshooting)
 
 [2. Lab - Tools Walkthrough](#lab-2---tools-walkthrough)
 
@@ -23,9 +19,7 @@ Azure Superpowers Lab Manual
 
 - [2.3. Exercise - Az Walkthrough](#exercise---az-walkthrough)
 
-- [2.4. Exercise - Azure Storage Explorer Walkthrough](#exercise---azure-storage-explorer-walkthrough)
-
-- [2.5. Troubleshooting](#troubleshooting-1)
+- [2.4. Troubleshooting](#troubleshooting-1)
 
 [3. Lab - Azure AD and Service Principals](#lab-3---azure-ad-and-service-principals)
 
@@ -83,46 +77,6 @@ Azure Superpowers Lab Manual
 
 - [7.2. Troubleshooting](#troubleshooting-6)
 
-[8. Lab - PowerShell DSC](#lab-8---powershell-dsc)
-
-- [8.1. Exercise - Exploring DSC Custom Resources on the Web](#exercise---exploring-dsc-custom-resources-on-the-web)
-
-- [8.2. Exercise - Build a new Azure VM and install custom DSC resources](#exercise---build-a-new-azure-vm-and-install-custom-dsc-resources)
-
-- [8.3. Exercise - Create a DSC Configuration](#exercise---create-a-dsc-configuration)
-
-- [8.4. Exercise - Test the DSC Configuration Locally](#exercise---test-the-dsc-configuration-locally)
-
-- [8.5. Exercise - Create an Azure Compatible DSC package](#exercise---create-an-azure-compatible-dsc-package)
-
-- [8.6. Exercise - Deploy an ARM resource DSC extension](#exercise---deploy-an-arm-resource-dsc-extension)
-
-- [8.7. Troubleshooting](#troubleshooting-7)
-
-[9. Lab - Storage Accounts and SAS Tokens](#lab-9---storage-accounts-and-sas-tokens)
-
-- [9.1. Exercise - Create a storage account](#exercise---create-a-storage-account)
-
-- [9.2. Exercise - Create a blob container](#exercise---create-a-blob-container)
-
-- [9.3. Exercise - Create Test Files](#exercise---create-test-files)
-
-- [9.4. Exercise - Upload one text file using the portal](#exercise---upload-one-text-file-using-the-portal)
-
-- [9.5. Exercise - Upload a File Using Azure Storage Explorer](#exercise---upload-a-file-using-azure-storage-explorer)
-
-- [9.6. Exercise - Upload one file using PowerShell](#exercise---upload-one-file-using-powershell)
-
-- [9.7. Troubleshooting](#troubleshooting-8)
-
-[10. Lab - ARM Templates (Advanced)](#lab-10---arm-templates-advanced)
-
-- [10.1. Exercise - Review an existing Advanced ARM Template](#exercise---review-an-existing-advanced-arm-template)
-
-- [10.2. Exercise - Edit the existing Advanced ARM Template and deployment](#exercise---edit-the-existing-advanced-arm-template-and-deployment)
-
-- [10.3. Troubleshooting](#troubleshooting-9)
-
 [11. Lab - Azure DevOps Service Connections](#lab-11---azure-devops-service-connections)
 
 - [11.1. Exercise - Create a Service Principal](#exercise---create-a-service-principal)
@@ -157,13 +111,6 @@ Azure Superpowers Lab Manual
 
 - [12.11. Exercise - Service Connection](#exercise---service-connection)
 
-[13. Lab - Azure DevOps Build Continuous Integration](#lab-13---azure-devops-build-continuous-integration)
-
-- [13.1. Exercise - Setup an Azure DevOps build that uses CI to create DSC zip files](#exercise---setup-an-azure-devops-build-that-uses-ci-to-create-dsc-zip-files)
-
-[14. Lab - Azure DevOps Release Continuous Deployment](#lab-14---azure-devops-release-continuous-deployment)
-
-- [14.1. Exercise - Setup an Azure DevOps release](#exercise---setup-an-azure-devops-release)
 
 <div style="page-break-after: always;"></div>
 
@@ -184,82 +131,6 @@ For those new to DevOps, Infrastructure as Code, and Source Control,
 there are many tools that you need to familiarize yourself with. This
 lab makes sure that you have all the tools required for the labs covered
 in this class, as well as making sure they are up to date.
-
-<div style="page-break-after: always;"></div>
-
-## Exercise - Setup Az PowerShell Module
-
-### Launch PowerShell
-
-1.  Right Click on **Windows PowerShell** from either the Desktop or the
-    Start Menu
-
-2.  Select **Run as Administrator**
-
-### Set PowerShell Execution Policy
-
-1.  Run the following PowerShell Command to set your execution policy to
-    Unrestricted:
-
-```powershell
-Set-ExecutionPolicy Unrestricted
-```
-
-2.  Select Yes if prompted. Execution policies determine whether you can
-    load configuration files, such as your PowerShell profile, or run
-    scripts and whether scripts must be digitally signed before they are
-    run. More information on this topic can be found here:
-    <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6#parameters>
-
-### Install Az Module
-
-1.  Run the following PowerShell Command:
-
-```powershell
-Install-Module -Name 'Az'
-```
-
-2.  If not already installed, you may be prompted to install the NuGet
-    provider. Select **Yes** if this is the case.
-
-3.  You may receive a warning message stating you are installing modules
-    from an untrusted repository. Select **Yes** if this is the case.
-    This process may take several minutes.
-
-4.  Run the following PowerShell Command to verify the module has
-    installed correctly:
-
-```powershell
-Get-Module -Name '*Az*' -ListAvailable
-```
-
-5.  If installed, Az should be returned
-
-6.  Run the following PowerShell Command to turn off autosaving Azure
-    credentials\
-    (some Azure PowerShell versions have this on as the default)
-
-```powershell
-Disable-AzContextAutosave
-```
-
-<div style="page-break-after: always;"></div>
-
-Expected return:
-
-> PS C:\\\> Disable-AzContextAutosave
->
-> Mode : Process
->
-> ContextDirectory :
->
-> ContextFile :
->
-> CacheDirectory :
->
-> CacheFile :
->
-> Settings : {}
 
 <div style="page-break-after: always;"></div>
 
@@ -338,31 +209,6 @@ Expected return:
 
 <div style="page-break-after: always;"></div>
 
-## Exercise - Setup Azure Storage Explorer
-
-### Download Azure Storage Explorer
-
-1.  In a web browser, navigate to
-    <https://azure.microsoft.com/en-us/features/storage-explorer/>
-
-2.  Click **Download Storage Explorer free**
-
-3.  Note the location of the installation files
-
-### Install Azure Storage Explorer
-
-1.  Run the Azure Storage Explorer installation file
-
-2.  Accept the EULA and click **Install**
-
-3.  Accept the default location and click **Next**
-
-4.  Accept the Start Menu Folder and click **Next**
-
-5.  After the installation completes, uncheck "Launch Microsoft Azure
-    Storage Explorer" and click **Finish**
-
-<div style="page-break-after: always;"></div>
 
 ## Exercise - Version Check
 
@@ -375,6 +221,8 @@ Expected return:
     and Debug Console. If you do not see Terminal, click View in the top
     menu bar and click **Terminal**.
 
+
+**to-do:** may not need this
 3.  Type the following PowerShell command:
 
 ```powershell
@@ -402,31 +250,7 @@ git --version
 
 2.  The expected version is **1.37.1** or later
 
-### Check the version of Azure Storage Explorer
-
-1.  Launch Azure Storage Explorer
-
-2.  From the File Menu, click **Help** then **About**
-
-3.  The expected version is **1.9.0** or later
-
-<div style="page-break-after: always;"></div>
-
 ## Troubleshooting
-
-**Azure PowerShell**\
-\
-We have seen issues in previous workshops if a system has multiple
-versions of the Azure PowerShell module installed. If you run into
-module related issues, remove **all Azure modules** from\
-C:\\Program Files\\WindowsPowerShell\\Modules and install the Azure
-module again.
-
-While it is technically possible to have both the Az and AzureRM
-PowerShell modules installed, we recommend removing the AzureRM modules
-and using only the Az modules.
-
-The Az PowerShell module requires .Net Framework Runtime 4.7.2 or higher
 
 **Azure subscriptions**
 
